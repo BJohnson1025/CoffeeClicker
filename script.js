@@ -1,5 +1,7 @@
 // This line allows us to bring in the data object from our data.js file
 const data = window.data;
+const big_coffee = getElementById("bigCoffee");
+const producer_container = getElementById("producerContainer");
 
 // Make your References to the two DOM nodes
 
@@ -36,16 +38,17 @@ function clickCoffee(data) {
 function unlockProducers(producers, coffeeCount){ 
   producers.forEach((producer) => {
     let isItUnlocked = false;
-    if (coffeeCount >= producer.price && !isItUnlocked) {
+    if (coffeeCount >= producer.price /2 && !isItUnlocked) {
       producer.unlocked = true;
-    }
+      !isItUnlocked;
+      } 
 
+    });
 
   }
   // loop through the producers array passed into the function
   // for each producer, if the coffeeCount (passed in) is greater than or equal
   // to half the producer's price, reassign the producers.unlocked property to equal true
-}
 
 function getUnlockedProducers(data) {
   return data.producers.filter((producer) => {
@@ -176,6 +179,10 @@ function tick(data) {
   renderProducers(data);
 }
 
+const bigCoffee = document.getElementById("big_coffee");
+bigCoffee.addEventListener("click", () => clickCoffee(data));
+
+const producer_Container = document.getElementById(producerContainer)
 // Event Listeners
 
 // add a 'click' event listener to the bigCoffee element (that you referenced above)
