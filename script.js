@@ -5,6 +5,7 @@ const data = window.data;
 
 // Create a reference to the element who's ID is 'big_coffee and call it bigCoffee
 
+
 // Create a reference to the element who's ID is 'producer_container' and call it producerContainer
 
 /**************
@@ -12,11 +13,17 @@ const data = window.data;
  **************/
 
 function updateCoffeeView(coffeeQty) {
+  const coffee_counter = document.getElementById("coffee_counter");
+  coffee_counter.innerText = coffeeQty;
   // Create a reference to the element who's ID is 'coffee_counter'
   // Set the innerText of that element to be the coffeeQty passed into this function
 }
 
 function clickCoffee(data) {
+  data.coffee++;
+  updateCoffeeView(data.coffee);
+  renderProducers(data);
+
   // Increment the data object's (passed into this function) coffee property by one
   // call the updateCoffeeView function and pass it the newly updated data.coffee property
   // call the renderProducers function and pass it the data object
@@ -26,13 +33,24 @@ function clickCoffee(data) {
  *   SLICE 2
  **************/
 
-function unlockProducers(producers, coffeeCount) {
+function unlockProducers(producers, coffeeCount){ 
+  producers.forEach((producer) => {
+    let isItUnlocked = false;
+    if (coffeeCount >= producer.price && !isItUnlocked) {
+      producer.unlocked = true;
+    }
+
+
+  }
   // loop through the producers array passed into the function
   // for each producer, if the coffeeCount (passed in) is greater than or equal
   // to half the producer's price, reassign the producers.unlocked property to equal true
 }
 
 function getUnlockedProducers(data) {
+  return data.producers.filter((producer) => {
+    return producer.unlocked;
+  });
   // use the Array.prototype.filter() method
   // filter through the data.producers property, and return an array with only the producers whose
   // unlocked property is true
@@ -75,6 +93,9 @@ function deleteAllChildNodes(parent) {
 }
 
 function renderProducers(data) {
+  unlockProducers(data.producers, data.coffee);
+  const producerContainer = document.getElementById(producer_container);
+  deleteAllChildNodes(producerContainer);
   // call the unlockProducers function and pass it data.producers and data.coffee
 
   // make a reference to the DOM element whose ID is producer_container
@@ -143,6 +164,9 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
+  data.coffee += data.totalCPS;
+  updateCoffeeView (data.coffee);
+  renderProducers(data);
   // increment the data object's (passed into this function)
   // coffee property by the data.totalCPS amount
 
